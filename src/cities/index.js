@@ -1,38 +1,48 @@
-import React, { Component } from "react";
-import { View, Text, ListView } from "react-native";
-import styles from "./stylesheet";
+import React, { useEffect, useState } from "react";
+import { ListView } from "react-native";
+import List from "./list/index";
 
+// The two comparator functions we need to pass
+// to the data source. The "rowHasChanged()" function
+// does simple strict inequality. So does
+// "sectionHeaderHasChanged()".
 const rowHasChanged = (r1, r2) => r1 !== r2;
-// const data = new Array(100).fill(null).map((v, i) => `Item ${i}`);
-const cities = [
-  "Alexandria",
-  "Aurora",
-  "Austin",
-  "Boston",
-  "Chandler",
-  "Charlotte",
-  "Dallas",
-  "Dayton",
-  "Elizabeth",
-  "Eugene",
-  "Gilbert",
-  "Houston",
-  "Jackson",
-  "Lincoln",
-  "Madison",
-  "Memphis",
-  "Orlando",
-  "Phoenix",
-  "Savannah",
-  "Warren"
-];
-const source = new ListView.DataSource({ rowHasChanged }).cloneWithRows(cities);
+const sectionHeaderHasChanged = rowHasChanged;
 
-export default () => (
-  <View style={styles.container}>
-    <ListView
-      dataSource={source}
-      renderRow={i => <Text style={styles.item}>{i}</Text>}
+// Fetches items from the API using
+// the given "filter" and "asc" arguments. The
+// returned promise resolves a JavaScript object.
+const fetchItems = (filter, asc) =>
+  fetch(`/cities?filter=${filter}&asc=${+asc}`).then(resp => resp.json());
+
+// container of list
+export default () => {
+  const [asc, setAsc] = useState(true);
+  const [filter, setFilter] = useState("");
+  const [source, setSource] = useState(
+    new ListView.DataSource({
+      rowHasChanged,
+      sectionHeaderHasChanged
+    }).cloneWithRows([])
+  );
+
+  useEffect(() => {
+    // using then pattern , warning ::  effect function should not return anything despite a function
+    fetchItems(filter, asc).then(cities => {
+      setSource(source.cloneWithRows(cities));
+    });
+  }, [filter, asc]);
+
+  return (
+    <List
+      source={source}
+      asc={asc}
+      onFilter={text => {
+        setFilter(text);
+      }}
+      onSort={() => {
+        setAsc(!asc);
+      }}
     />
-  </View>
-);
+  );
+};

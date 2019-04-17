@@ -1,14 +1,21 @@
-import { StyleSheet } from "react-native";
-
-/*
-* StyleSheet Object to create the style for the current screen
-* Flexbox work similar to css flexbox 
-*/
-export default StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  }
-});
+import { StyleSheet } from 'react-native'; 
+ 
+export default StyleSheet.create({ 
+  container: { 
+    // Flexing from top to bottom gives the 
+    // container a height, which is necessary 
+    // to enable scrollable content. 
+    flex: 1, 
+    flexDirection: 'column', 
+    paddingTop: 100, 
+    paddingBottom: 100,
+  }, 
+ 
+  item: { 
+    margin: 5, 
+    padding: 5, 
+    color: 'slategrey', 
+    backgroundColor: 'ghostwhite', 
+    textAlign: 'center', 
+  }, 
+}); 

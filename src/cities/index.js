@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListView } from "react-native";
 import List from "./list/index";
+import './mock';
 
 // The two comparator functions we need to pass
 // to the data source. The "rowHasChanged()" function

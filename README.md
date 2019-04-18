@@ -26,8 +26,16 @@ Views are the most basic building block of React Native apps, much like how divs
 
 ### Text
 
-Text is used to render text. Unlike on the web, text must be wrapped in a Text component.
+`Text` is used to render text. Unlike on the web, text must be wrapped in a Text component.
 
 ### ListView
 
  The React Native component you'll use to render lists is ListView. List views take a data source property, which must be a ListView.DataSource instance.
+
+ ### TextInput
+
+ `TextInput` is a basic component that allows the user to enter text. It has an onChangeText prop that takes a function to be called every time the text changed, and an onSubmitEditing prop that takes a function to be called when the text is submitted.
+
+ ### Button
+
+ `Button` provides a basic button component that is rendered nicely on all platforms.

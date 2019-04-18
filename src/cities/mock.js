@@ -1,5 +1,5 @@
-import fetchMock from "fetch-mock";
-import querystring from "querystring";
+// import fetchMock from "fetch-mock";
+// import querystring from "querystring";
 
 const cities = [
   "Alexandria",
@@ -33,17 +33,19 @@ const filterAndSort = (data, text, asc) =>
         : (a, b) => (a > b ? -1 : a === b ? 0 : 1)
     );
 
-fetchMock.mock(/\/cities.*/, url => {
-  // Gets the "filter" and "asc" parameters.
-  const params = querystring.parse(url.split("?")[1]);
+// fetchMock.mock(/\/cities.*/, url => {
+//   // Gets the "filter" and "asc" parameters.
+//   const params = querystring.parse(url.split("?")[1]);
 
-  // Performs the sorting and filtering before
-  // responding.
-  return {
-    items: filterAndSort(
-      cities,
-      params.filter ? params.filter : "",
-      !!+params.asc
-    )
-  };
-});
+//   // Performs the sorting and filtering before
+//   // responding.
+//   return {
+//     items: filterAndSort(
+//       cities,
+//       params.filter ? params.filter : "",
+//       !!+params.asc
+//     )
+//   };
+// });
+
+export default (filter, asc) => Promise.resolve(filterAndSort(cities, filter, asc));

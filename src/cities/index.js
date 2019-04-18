@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ListView } from "react-native";
 import List from "./list/index";
-import './mock';
+import fetchItems from './mock';
 
 // The two comparator functions we need to pass
 // to the data source. The "rowHasChanged()" function
@@ -13,8 +13,14 @@ const sectionHeaderHasChanged = rowHasChanged;
 // Fetches items from the API using
 // the given "filter" and "asc" arguments. The
 // returned promise resolves a JavaScript object.
-const fetchItems = (filter, asc) =>
-  fetch(`/cities?filter=${filter}&asc=${+asc}`).then(resp => resp.json());
+// const fetchItems = (filter, asc) =>
+//   fetch(`https://restcountries.eu/rest/v2/all`)
+//     .then(resp => {
+//       console.log(resp);
+//       return resp.json();
+//     })
+//     .then(resp => resp.map(item => item.name));
+
 
 // container of list
 export default () => {
